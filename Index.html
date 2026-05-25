@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Psychopathologie Systémique</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<style>*{box-sizing:border-box;margin:0;padding:0;}body{background:#080c14;}</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const chapters = [
+  {
+    id: 1, icon: "🔄", title: "Introduction", subtitle: "Du trouble à la relation", color: "#e879f9",
+    sections: [
+      {
+        title: "Le changement de regard systémique",
+        content: `La pensée systémique résiste à 3 tentations : diagnostiquer, pathologiser, individualiser. On passe d'une lecture centrée sur l'individu à une lecture qui intègre les relations, les contextes et les dynamiques.`,
+        key: "Causalité circulaire (A↔B) vs linéaire (A→B)",
+        quiz: [
+          { q: "La pensée systémique résiste aux tentations de diagnostiquer, pathologiser et individualiser.", answer: true, exp: "Oui, ces 3 tentations sont celles auxquelles la pensée systémique résiste pour aller vers une lecture relationnelle et contextuelle." },
+          { q: "La causalité circulaire signifie que A influence B mais que B n'influence pas A.", answer: false, exp: "Faux. Dans la causalité circulaire, A influence B ET B influence A en retour. C'est l'opposé de la causalité linéaire (A→B seulement)." },
+          { q: "Approfondir la psychopathologie signifie avant tout approfondir le diagnostic.", answer: false, exp: "Faux. Approfondir la psychopathologie c'est amener de la complexité en intégrant relations, contextes et dynamiques — pas juste affiner les diagnostics." },
+        ]
+      },
+      {
+        title: "Accueillir la souffrance psychique",
+        content: `1 belge sur 5 est touché par un trouble psychique. 1 enfant/ado sur 7 souffre d'un trouble de santé mentale.\n\nLa stigmatisation = "seconde maladie" : obstacle aux soins, prise en charge de moins bonne qualité, surmortalité.\n\nL'accueil passe par :\n→ Mise en suspension de ses préjugés\n→ Ouverture interne et externe\n→ Laisser au repos le contrôle`,
+        key: "La curiosité = position naïve : 'je ne connais rien, le patient a tout à m'apprendre'",
+        quiz: [
+          { q: "La stigmatisation est appelée 'seconde maladie' car les patients s'identifient à l'image négative que la société projette sur eux.", answer: true, exp: "Oui, les patients finissent par se comporter comme ce que la société attend d'eux, aggravant leur souffrance — d'où l'idée de seconde maladie." },
+          { q: "La neutralité totale du clinicien est possible et souhaitable lors de l'accueil.", answer: false, exp: "Faux. La neutralité est quasi impossible. L'idée est de prendre conscience de ses représentations pour pouvoir les mettre de côté, pas d'être neutre." },
+          { q: "La dernière étape de l'accueil est de laisser au repos le contrôle et d'être ouvert à ce qui vient.", answer: true, exp: "Oui, lâcher le contrôle permet d'être dans le moment présent sans être sur le qui-vive, et de laisser vivre la rencontre." },
+        ]
+      },
+      {
+        title: "Histoire de la thérapie familiale",
+        content: `• Avant années 50 : Ackerman & Whittaker — premiers à rencontrer des familles\n• Années 50 : Bateson → École de Palo Alto. Von Bertalanffy → théorie générale des systèmes. Wiener → cybernétique (vision circulaire)\n• Années 80 : Seconde cybernétique — thérapeute fait partie du système. Constructivisme — le réel n'est pas objectif. École de Milan (Selvini) — hypothétisation, circularité, neutralité, miroir sans tain\n• Post-modernes : thérapie narrative, approche centrée sur la solution`,
+        key: "Seconde cybernétique : le thérapeute influence la famille ET est influencé par elle",
+        quiz: [
+          { q: "Avec la seconde cybernétique, le thérapeute est considéré comme extérieur et neutre par rapport au système familial.", answer: false, exp: "Faux. La seconde cybernétique modifie cette position : le thérapeute fait partie du système, il l'influence et est influencé par lui via son histoire et ses émotions." },
+          { q: "L'École de Milan a introduit le miroir sans tain comme outil thérapeutique.", answer: true, exp: "Oui, Selvini et son groupe ont introduit le miroir sans tain, permettant à des observateurs d'avoir une réflexivité différente sur la situation familiale." },
+          { q: "Le constructivisme affirme que le réel est objectif et indépendant de nos préconceptions.", answer: false, exp: "Faux. Le constructivisme affirme que le réel est perçu à partir de nos préconceptions et expériences antérieures — il n'est pas objectif." },
+        ]
+      }
+    ]
+  },
+  {
+    id: 2, icon: "👨‍👩‍👧‍👦", title: "La famille", subtitle: "Système complexe", color: "#38bdf8",
+    sections: [
+      {
+        title: "5 principes du système familial",
+        content: `• Interdépendance : si un membre change → tous changent (métaphore du mobile suspendu)\n• Totalité : le tout prime sur la somme des parties\n• Rétroaction : feedback + amplifie le symptôme / feedback - le régule\n• Homéostasie : le système vise l'équilibre — le symptôme peut y participer\n• Équifinalité : mêmes origines ≠ conséquences / mêmes conséquences ≠ origines`,
+        key: "Le symptôme peut être une solution pour maintenir l'équilibre familial",
+        quiz: [
+          { q: "Le principe d'équifinalité signifie que les mêmes causes produisent toujours les mêmes effets.", answer: false, exp: "Faux. L'équifinalité dit que les mêmes conséquences peuvent avoir des origines différentes, et les mêmes origines peuvent avoir des conséquences différentes." },
+          { q: "Un feedback positif dans une famille amplifie et maintient le symptôme.", answer: true, exp: "Oui, le feedback positif amplifie et maintient le symptôme. C'est le feedback négatif qui le régule et le freine." },
+          { q: "Selon le principe de totalité, comprendre la famille revient à analyser chaque membre séparément.", answer: false, exp: "Faux. La totalité signifie que le tout prime sur la somme des parties. On ne peut pas comprendre la famille en additionnant ses membres." },
+        ]
+      },
+      {
+        title: "Organisation et cycle de vie",
+        content: `La famille a des rôles, des règles implicites et des frontières (souples / rigides / diffuses).\n\nCycle de vie : formation du couple → naissance → fratrie → adolescence → nid vide.\nLe symptôme signale la difficulté d'un membre à passer une étape.\n\nAdolescence : métaphore du port — l'ado part à l'aventure mais a besoin d'un port stable. Aller-retour autonomie ↔ sécurité.`,
+        key: "Rivalité fraternelle max entre 18-36 mois d'écart. Au-delà de 6 ans → vécu d'enfant unique",
+        quiz: [
+          { q: "La rivalité fraternelle est maximale quand l'écart d'âge est supérieur à 6 ans.", answer: false, exp: "Faux. La rivalité est maximale entre 18 et 36 mois d'écart. Au-delà de 6 ans d'écart, on parle plutôt d'un vécu d'enfant unique." },
+          { q: "La différenciation de l'adolescent par rapport à ses parents est un besoin développemental normal, pas un rejet.", answer: true, exp: "Oui, la différenciation est nécessaire au développement. Les parents doivent la contenir sans la vivre comme un rejet, et rester unis pour offrir un cadre sécurisant." },
+          { q: "Le 'nid vide' désigne le moment où les parents quittent le domicile familial.", answer: false, exp: "Faux. Le nid vide c'est quand tous les enfants partent et qu'il ne reste que le couple parental — ce qui peut être anxiogène car le tiers disparaît du système." },
+        ]
+      },
+      {
+        title: "Famille saine vs en difficulté",
+        content: `Famille saine : système ouvert, frontières souples, bonne capacité d'adaptation, circulation de l'information, rôles différenciés, empathie.\n\nMinuchin — 2 styles transactionnels (≠ pathologies) :\n• Désengagée : frontières rigides, isolement, indépendance, "il faut tourner la page"\n• Enchevêtrée : frontières diffuses, fusion, appartenance intense, fléchissement de l'autonomie\n\nAusloos — 2 types :\n• Transactions rigides : temps arrêté, mémoire inutilisable, rien ne change → susciter une crise\n• Transactions chaotiques : temps évènementiel, rien ne fait trace → freiner le temps, préciser le contrat`,
+        key: "Désengagée = frontières rigides / Enchevêtrée = frontières diffuses (styles, pas pathologies)",
+        quiz: [
+          { q: "Selon Minuchin, les familles désengagées et enchevêtrées sont des pathologies familiales.", answer: false, exp: "Faux. Ce sont des styles transactionnels, pas des pathologies. Ce n'est pas une différence qualitative entre fonctionnel et dysfonctionnel." },
+          { q: "Dans les familles enchevêtrées, l'autonomie des membres fait peur et l'extérieur est perçu comme menaçant.", answer: true, exp: "Oui, dans les familles enchevêtrées les frontières sont diffuses, tout se fait au sein de la famille, l'autonomie est un danger et l'appartenance est très intense." },
+          { q: "Dans les familles à transactions rigides, le passé est utilisé pour apprendre et évoluer.", answer: false, exp: "Faux. Dans ces familles la mémoire est inutilisable : le temps est arrêté, le passé est laissé derrière et les membres pensent qu'il ne les impacte pas." },
+        ]
+      }
+    ]
+  },
+  {
+    id: 3, icon: "🏷️", title: "Diagnostic", subtitle: "Aller au-delà de l'étiquette", color: "#fb923c",
+    sections: [
+      {
+        title: "Le patient désigné",
+        content: `Le patient désigné ≠ forcément celui qui souffre le plus. C'est celui qui porte le "voyant rouge" du système en déséquilibre.\n\nLa demande des familles : "faites que LUI change, mais pas nous."\n\nFonctions du symptôme :\n• Canalise le conflit conjugal (parents se recentrent sur l'enfant)\n• Donne une cohésion à la famille (tout le monde s'organise autour)\n• Évite une crise (détourne l'attention des traumatismes, secrets)\n• Parle à la place du système (porte-parole de tensions non dites)`,
+        key: "Attaquer le symptôme = risque qu'il se déplace sur un autre membre de la famille",
+        quiz: [
+          { q: "Le patient désigné est toujours celui qui souffre le plus dans la famille.", answer: false, exp: "Faux. Le patient désigné est celui qui montre que ça va mal dans la famille, mais pas forcément celui qui souffre le plus. Il porte le 'voyant rouge' du système." },
+          { q: "Le symptôme de l'enfant peut servir à maintenir la cohésion familiale en organisant la famille autour de lui.", answer: true, exp: "Oui, la famille crée du lien autour du symptôme via les rendez-vous, les inquiétudes, les discussions. Même dysfonctionnel, il rassemble." },
+          { q: "Supprimer le symptôme suffit à résoudre le problème familial sous-jacent.", answer: false, exp: "Faux. Si on supprime le symptôme sans changer la dynamique familiale, il risque de se déplacer sur un autre membre. C'est le système qu'il faut modifier." },
+        ]
+      },
+      {
+        title: "Trait / Trouble / Maladie (Bujold)",
+        content: `• Trait : caractéristique stable, flexible, pas pathologique — la personne garde sa liberté de choix\n• Trouble : même trait mais amplifié, rigidifié, hors contexte → trop fréquent, trop généralisé. On peut s'en défaire\n• Maladie : inscrit dans la génétique, permanent, nécessite traitement médicamenteux\n\nProcessus sélection/amplification (Ausloos) :\ncomportement aléatoire → sélectionné par la famille → amplifié (rétroactions) → cristallisé en symptôme identifié`,
+        key: "Le symptôme n'est pas une cause individuelle — c'est une conséquence des interactions relationnelles",
+        quiz: [
+          { q: "Un trouble, au sens de Bujold, est inscrit dans la génétique et permanent.", answer: false, exp: "Faux. C'est la maladie qui est inscrite dans la génétique et permanente. Le trouble est un trait amplifié et rigidifié dont on peut se défaire." },
+          { q: "Selon Ausloos, le symptôme est d'abord une cause individuelle.", answer: false, exp: "Faux. Le symptôme est une conséquence dynamique des interactions relationnelles. C'est la famille qui sélectionne et amplifie un comportement jusqu'à le cristalliser en symptôme." },
+          { q: "Le diagnostic nous apprend peu de choses sur la personne, mais nous renseigne sur ce qu'elle fait quand elle va le plus mal.", answer: true, exp: "Oui, les diagnostics aux urgences par exemple sont peu fiables car la crise accentue les symptômes. Le diagnostic n'est pas un état définitif." },
+        ]
+      },
+      {
+        title: "Double contrainte & Compétences",
+        content: `Double contrainte : Programme Officiel (demande consciente de changer) VS Construction du Monde (croyance inconsciente du passé — souvent à l'inverse). Le comportement de l'autre confirme notre croyance.\n\nCompétences (Ausloos) :\n• Postulat 1 : "Un système ne peut se poser que des problèmes qu'il est capable de résoudre"\n• Postulat 2 : L'information pertinente vient du système et y retourne\n\n→ Questions circulaires : demander à C comment il perçoit la relation entre A et B\n→ Miser sur les compétences ≠ inventorier les dysfonctionnements`,
+        key: "Le thérapeute crée un contexte — la famille trouve ses propres 'auto-solutions'",
+        quiz: [
+          { q: "Le programme officiel correspond aux croyances inconscientes élaborées dans le passé.", answer: false, exp: "Faux. Le programme officiel c'est la demande explicite et consciente. Les croyances inconscientes du passé forment la 'construction du monde'." },
+          { q: "Selon Ausloos, le thérapeute doit fournir les solutions à la famille.", answer: false, exp: "Faux. Le thérapeute crée un contexte de confiance pour que la famille trouve ses propres 'auto-solutions'. Il est activateur, pas fournisseur de solutions." },
+          { q: "Les questions circulaires consistent à demander à un membre comment il perçoit la relation entre deux autres membres.", answer: true, exp: "Oui, c'est la technique centrale des systémiciens : plutôt que de demander au père comment il vit la situation, on demande à l'enfant comment il pense que son père la vit." },
+        ]
+      }
+    ]
+  },
+  {
+    id: 4, icon: "🧒", title: "L'enfant", subtitle: "Ressource thérapeutique", color: "#34d399",
+    sections: [
+      {
+        title: "L'enfant au centre de la thérapie",
+        content: `Andolfi : le trouble de l'enfant est un problème familial. L'enfant est :\n• Porte d'entrée dans le système familial\n• Baromètre du système (résistance ou ouverture au changement)\n• Régulateur du processus thérapeutique\n\nLe thérapeute doit se reconnecter à son enfant intérieur pour parler le langage de l'enfant (jeu, créativité, spontanéité).\n\nRisque à éviter : être happé par le discours des parents et oublier l'enfant au centre.`,
+        key: "Valoriser l'enfant en thérapie restitue indirectement compétence et responsabilité aux parents",
+        quiz: [
+          { q: "Selon Andolfi, l'enfant doit être tenu à l'écart des séances familiales pour le protéger.", answer: false, exp: "Faux. Andolfi défend au contraire la présence de l'enfant comme ressource centrale. L'exclure 'pour le protéger' est selon lui une des grandes trahisons de la thérapie familiale." },
+          { q: "L'enfant peut servir de baromètre pour voir si le système familial résiste ou s'ouvre au changement.", answer: true, exp: "Oui, par ses réactions en séance, l'enfant montre si le système bloque ou évolue. Il est un régulateur du processus thérapeutique." },
+          { q: "Un thérapeute travaillant avec des enfants doit maintenir une posture exclusivement professionnelle et distante.", answer: false, exp: "Faux. Le thérapeute doit se reconnecter à son enfant intérieur pour parler le langage de l'enfant — jeu, créativité, spontanéité. Une posture trop cérébrale fait rater l'essentiel." },
+        ]
+      },
+      {
+        title: "Analyser la demande",
+        content: `Neuburger — 3 éléments :\n• L'allégation : demande d'aide (qui est le plus préoccupé ?)\n• La souffrance : ce qui fait mal (qui souffre le plus ?)\n• Le symptôme : signal pour l'entourage (qui pose le plus de problèmes ?)\n\nSi les 3 sont portés par la même personne → thérapie individuelle\nSi distribués sur plusieurs personnes → thérapie familiale\n\n4 types de demande :\n1. Pour un autre membre de la famille\n2. Pour une relation difficile\n3. Sans demande (mandat coercitif — SAJ/SPJ)\n4. Individuelle pour soi-même`,
+        key: "La demande systémique = rupture homéostasique. Se demander : qu'est-ce qui fait crise MAINTENANT ?",
+        quiz: [
+          { q: "Si l'allégation, la souffrance et le symptôme sont portés par des personnes différentes, c'est une indication de thérapie familiale.", answer: true, exp: "Oui, selon Neuburger, quand les 3 éléments sont distribués sur différentes personnes du système, cela indique une thérapie familiale plutôt qu'individuelle." },
+          { q: "La demande en thérapie systémique correspond toujours à une rupture homéostasique.", answer: true, exp: "Oui, pour les systémiciens, une demande = quelque chose a rompu l'équilibre. Il faut toujours se demander : qu'est-ce qui fait crise maintenant, qu'est-ce qui a changé ?" },
+          { q: "L'analyse de la demande commence lors du premier entretien en cabinet.", answer: false, exp: "Faux. L'analyse commence dès le premier appel téléphonique : qui appelle, qui est l'envoyeur, quels symptômes sont énoncés, qui est au courant... C'est déjà une mine d'informations." },
+        ]
+      },
+      {
+        title: "Symptômes & Rencontre avec la famille",
+        content: `Symptômes selon l'âge :\n• Petit enfant : sommeil, alimentaire, psychosomatique, digestif\n• Enfant + grand : scolaire, comportement, apprentissage\n• Ado : crises, fugues, dépression, anorexie, addictions\n• Adulte : anxiété, burnout, PTSD, conduites addictives\n\nToujours interroger le symptôme à travers l'histoire multigénérationnelle.\nToujours vérifier d'abord les causes somatiques avant d'envisager le relationnel.\n\nLes grands-parents : ressource précieuse (modèle tri-générationnel d'Andolfi).\nLa fratrie : laboratoire social — rivalité développementale (normale) / exacerbée / figée.`,
+        key: "La solution est déjà dans le problème — Ausloos. Chercher dans le symptôme les indicateurs vers la solution",
+        quiz: [
+          { q: "Il faut toujours vérifier les causes somatiques d'un symptôme avant d'envisager une origine relationnelle.", answer: true, exp: "Oui, par exemple l'énurésie peut être psychique mais aussi avoir des causes somatiques. On peut aussi faire des examens neurologiques en cas de troubles du comportement." },
+          { q: "La rivalité fraternelle exacerbée est toujours une version aggravée de la rivalité développementale normale.", answer: false, exp: "Non, la rivalité exacerbée a une fonction spécifique : elle peut répondre en miroir aux conflits des parents. Les enfants peuvent se 'lier' à chaque parent et rejouer le conflit conjugal." },
+          { q: "Inviter les grands-parents en séance peut aider à débloquer des ressources dans le système familial.", answer: true, exp: "Oui, le modèle tri-générationnel d'Andolfi montre que les grands-parents peuvent être des ressources précieuses, notamment en cas de séparation parentale." },
+        ]
+      }
+    ]
+  },
+  {
+    id: 5, icon: "🔗", title: "Liens & Générations", subtitle: "Travail en famille", color: "#f472b6",
+    sections: [
+      {
+        title: "Blocages évolutifs & Triangle de Bowen",
+        content: `L'enfant chronique : adulte qui n'a pas réussi à se différencier de ses parents → reste loyal à ses parents au détriment de son couple.\n\nLa rupture émotionnelle : séparation brutale apparente. Le lien reste chargé émotionnellement, figé. L'adulte "remplit des sacs troués".\n\nTriangle relationnel de Bowen :\n• Plus petite configuration émotionnellement stable\n• La dyade est instable face à l'angoisse → recrute un tiers\n• Fonctions : diminuer tensions, détourner attention, maintenir cohésion\n• Pathologique si rigidifié\n• Si tension trop forte → triangles en intersection → services sociaux, police`,
+        key: "Différenciation (Bowen) : capable de dire ses besoins, de ne pas être d'accord, de tenir tête à ses parents",
+        quiz: [
+          { q: "La rupture émotionnelle signifie que le lien avec les parents est réellement résolu une fois le contact coupé.", answer: false, exp: "Faux. La rupture est apparente. Le lien reste puissant et chargé d'affects, figé sous la forme d'une coupure. L'adulte s'illusionne que c'est terminé." },
+          { q: "Le triangle de Bowen est pathologique en soi.", answer: false, exp: "Faux. Le triangle est un mode naturel d'être, la plus petite configuration stable. Il devient pathologique seulement s'il est rigidifié et qu'il fige des comportements répétitifs." },
+          { q: "Quand les tensions sont très fortes, le système peut triangler avec des personnes extérieures comme la police ou les services sociaux.", answer: true, exp: "Oui, selon Bowen, quand les possibilités de triangulation interne sont épuisées, le système triangule à l'extérieur — voisins, amis, institutions sociales, police." },
+        ]
+      },
+      {
+        title: "Inversion des rôles",
+        content: `3 inversions des rôles (Mazzoni) :\n• Parentification : enfant prend en charge les besoins AFFECTIFS du parent au détriment de ses propres besoins. Adaptative (limitée, reconnue) ou destructive (pas de réciprocité).\n• Adultalisation : enfant traité comme un égal, prend des décisions d'adulte\n• Maritalisation : enfant devient le compagnon émotionnel du parent\n\n3 rôles de l'enfant parentifié :\n• Soignant : s'occupe du parent et de la fratrie, trop mature\n• Bouc émissaire : rôle de victime ou délinquant pour réunifier la famille\n• Neutre : façade parfaite, cache vide et tristesse profonde`,
+        key: "Critère central de la parentification : l'enfant met ses propres besoins ENTRE PARENTHÈSES",
+        quiz: [
+          { q: "La parentification est toujours pathologique, même si elle est de courte durée.", answer: false, exp: "Faux. La parentification adaptative — limitée dans le temps et reconnue par le parent — peut ne pas être pathologique. C'est l'absence de réciprocité et de reconnaissance qui la rend destructrice." },
+          { q: "La maritalisation désigne l'enfant qui prend en charge les tâches ménagères à la place du parent.", answer: false, exp: "Faux. La maritalisation c'est quand l'enfant se substitue ÉMOTIONNELLEMENT au partenaire — il devient le compagnon du parent. La prise en charge des besoins pratiques/affectifs c'est la parentification." },
+          { q: "L'enfant au rôle 'neutre' dans la parentification souffre souvent de sentiments de vide et de solitude intense derrière une façade parfaite.", answer: true, exp: "Oui, ces enfants parfaits qu'on oublie cache une grande souffrance. Leur quête de perfection les fait beaucoup souffrir. Ce sont les plus difficiles à repérer." },
+        ]
+      },
+      {
+        title: "Figures du père & Règles d'Ausloos",
+        content: `3 figures du père :\n• Légal : défini par le droit, inscrit sur l'acte de naissance\n• Biologique : peut ne pas être connu ni impliqué\n• Affectif : occupe une place relationnelle dans la vie psychique de l'enfant\n\n3 pères psychiques :\n• Réel : faillible, du quotidien (l'ado le découvre à l'adolescence)\n• Imaginaire : le super-héros des 6-7 ans\n• Symbolique : tiers qui coupe la fusion mère-enfant (présenté par la mère)\n\nRègles d'Ausloos :\n• Grande règle : nécessaire à la survie, non négociable, pas d'exception → si trop de grandes règles : secrets, mensonges (familles rigides)\n• Petite règle : négociable, sujette à exceptions → si trop de petites règles : accidents, désorientation (familles chaotiques)\n\nEnfants mutants (Gaillard) : rapport horizontal à l'autorité, autonomie forte → adaptés à la société, pas des troubles.`,
+        key: "Le père symbolique est présenté par la mère à l'enfant — attention à ce qu'elle dit du père devant lui",
+        quiz: [
+          { q: "Le père symbolique est nécessairement le père biologique de l'enfant.", answer: false, exp: "Faux. Le père symbolique représente 'l'autre que la mère' — une fonction tierce qui coupe la fusion mère-enfant. Ce peut être le beau-père, le père adoptif, etc." },
+          { q: "Selon Gaillard, les comportements des 'enfants mutants' sont des troubles ou déviances à traiter.", answer: false, exp: "Faux. Gaillard propose que ces jeunes sont adaptés à un nouveau contexte social. Ce sont les institutions qui utilisent des modèles obsolètes, pas les enfants qui sont problématiques." },
+          { q: "Une grande règle selon Ausloos est négociable et sujette à exceptions selon le contexte.", answer: false, exp: "Faux. C'est la petite règle qui est négociable. La grande règle est nécessaire à la survie, ne peut être transgressée sous aucun prétexte et ne nécessite aucune justification." },
+        ]
+      }
+    ]
+  }
+];
+
+const AUTHORS = [
+  { name: "Bateson", role: "École de Palo Alto, cybernétique, communication" },
+  { name: "Von Bertalanffy", role: "Théorie générale des systèmes, homéostasie" },
+  { name: "Minuchin", role: "Familles désengagées/enchevêtrées, frontières" },
+  { name: "Ausloos", role: "Compétences, transactions rigides/chaotiques, grandes/petites règles, sélection/amplification" },
+  { name: "Andolfi", role: "Enfant ressource, thérapies de couple camouflées, modèle tri-générationnel" },
+  { name: "Bowen", role: "Triangle relationnel, différenciation, rupture émotionnelle, enfant chronique" },
+  { name: "Selvini (École de Milan)", role: "Hypothétisation, circularité, neutralité, miroir sans tain" },
+  { name: "Neuburger", role: "Allégation / souffrance / symptôme, analyse de la demande" },
+  { name: "Haxhe", role: "Fratrie, parentification, rivalité fraternelle" },
+  { name: "Mazzoni", role: "Parentification, adultalisation, maritalisation" },
+  { name: "Bujold", role: "Trait / trouble / maladie" },
+  { name: "Gaillard", role: "Enfants mutants, mutation psycho-sociétale" },
+];
+
+function App() {
+  const [activeChapter, setActiveChapter] = useState(null);
+  const [activeSection, setActiveSection] = useState(0);
+  const [showAuthors, setShowAuthors] = useState(false);
+  const [tab, setTab] = useState("cours");
+  const [quizAnswers, setQuizAnswers] = useState({});
+  const [quizRevealed, setQuizRevealed] = useState({});
+
+  const bg = "#080c14";
+  const cardBg = "#0e1420";
+  const borderCol = "#1e2a3a";
+  const textMain = "#e8edf5";
+  const textSub = "#6b7f96";
+
+  const ch = activeChapter !== null ? chapters[activeChapter] : null;
+
+  const handleAnswer = (chIdx, sIdx, qIdx, val) => {
+    const key = `${chIdx}-${sIdx}-${qIdx}`;
+    if (quizRevealed[key]) return;
+    setQuizAnswers(prev => ({ ...prev, [key]: val }));
+    setQuizRevealed(prev => ({ ...prev, [key]: true }));
+  };
+
+  const getScore = (chIdx, sIdx) => {
+    const qs = chapters[chIdx].sections[sIdx].quiz;
+    let correct = 0, answered = 0;
+    qs.forEach((q, qIdx) => {
+      const key = `${chIdx}-${sIdx}-${qIdx}`;
+      if (quizRevealed[key]) { answered++; if (quizAnswers[key] === q.answer) correct++; }
+    });
+    return { correct, answered, total: qs.length };
+  };
+
+  return (
+    <div style={{ minHeight: "100vh", background: bg, fontFamily: "'Georgia','Times New Roman',serif", color: textMain, overflowX: "hidden" }}>
+      <div style={{ borderBottom: `1px solid ${borderCol}`, padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: `${bg}ee`, backdropFilter: "blur(12px)", zIndex: 100 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          {activeChapter !== null && (
+            <button onClick={() => { setActiveChapter(null); setActiveSection(0); setTab("cours"); }} style={{ background: "none", border: "none", color: textSub, cursor: "pointer", fontSize: 20, padding: "2px 8px" }}>←</button>
+          )}
+          <div>
+            <div style={{ fontSize: 10, letterSpacing: 3, color: textSub, textTransform: "uppercase" }}>{activeChapter !== null ? `Chapitre ${ch.id}` : "Résumé complet"}</div>
+            <div style={{ fontSize: 15, fontWeight: 700, color: textMain }}>{activeChapter !== null ? ch.title : "Psychopathologie Systémique"}</div>
+          </div>
+        </div>
+        <button onClick={() => { setShowAuthors(!showAuthors); setActiveChapter(null); }}
+          style={{ background: showAuthors ? "#1e2a3a" : "none", border: `1px solid ${showAuthors ? "#38bdf8" : borderCol}`, color: showAuthors ? "#38bdf8" : textSub, borderRadius: 10, padding: "7px 14px", fontSize: 12, cursor: "pointer", fontFamily: "inherit" }}>
+          👥 Auteurs
+        </button>
+      </div>
+
+      {showAuthors && (
+        <div style={{ padding: "24px", maxWidth: 860, margin: "0 auto" }}>
+          <div style={{ fontSize: 11, letterSpacing: 3, color: textSub, textTransform: "uppercase", marginBottom: 18 }}>Auteurs à connaître pour l'examen</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 10 }}>
+            {AUTHORS.map((a, i) => (
+              <div key={i} style={{ background: cardBg, border: `1px solid ${borderCol}`, borderRadius: 12, padding: "14px 18px" }}>
+                <div style={{ fontWeight: 700, color: "#38bdf8", fontSize: 14, marginBottom: 5 }}>{a.name}</div>
+                <div style={{ color: textSub, fontSize: 13, lineHeight: 1.5 }}>{a.role}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!showAuthors && activeChapter === null && (
+        <div style={{ padding: "28px 24px", maxWidth: 860, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 36 }}>
+            <div style={{ fontSize: 26, fontWeight: 700, color: textMain }}>Résumé complet du cours</div>
+            <div style={{ color: textSub, marginTop: 6, fontSize: 14 }}>5 chapitres · Cours + Quiz V/F par section</div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {chapters.map((c, i) => (
+              <button key={i} onClick={() => { setActiveChapter(i); setActiveSection(0); setTab("cours"); setShowAuthors(false); }}
+                style={{ background: cardBg, border: `1px solid ${borderCol}`, borderRadius: 16, padding: "20px 24px", cursor: "pointer", display: "flex", alignItems: "center", gap: 18, textAlign: "left", width: "100%" }}>
+                <div style={{ width: 48, height: 48, borderRadius: 12, background: c.color + "20", border: `1px solid ${c.color}44`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>{c.icon}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 10, color: c.color, letterSpacing: 2, textTransform: "uppercase", marginBottom: 3 }}>Chapitre {c.id} · {c.sections.length} sections</div>
+                  <div style={{ fontSize: 17, fontWeight: 700, color: textMain }}>{c.title}</div>
+                  <div style={{ fontSize: 13, color: textSub, marginTop: 2 }}>{c.subtitle}</div>
+                </div>
+                <div style={{ color: textSub }}>→</div>
+              </button>
+            ))}
+          </div>
+          <div style={{ marginTop: 24, background: cardBg, border: `1px solid ${borderCol}`, borderRadius: 16, padding: "22px 24px" }}>
+            <div style={{ fontSize: 11, letterSpacing: 3, color: textSub, textTransform: "uppercase", marginBottom: 14 }}>⚡ À retenir absolument</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 8 }}>
+              {["Causalité circulaire A↔B (≠ linéaire)", "Homéostasie : le symptôme maintient l'équilibre", "Patient désigné ≠ celui qui souffre le plus", "Seconde cybernétique : thérapeute IN le système", "Postulat Ausloos : la famille résout ses propres problèmes", "Triangle de Bowen : plus petite unité stable", "Parentification : enfant met ses besoins entre parenthèses", "Rupture émotionnelle : coupure apparente, lien toujours là"].map((item, i) => (
+                <div key={i} style={{ background: "#0a0f1a", border: `1px solid ${borderCol}`, borderRadius: 8, padding: "9px 12px", fontSize: 12, color: textMain, lineHeight: 1.5 }}>
+                  <span style={{ color: "#f472b6", marginRight: 5 }}>→</span>{item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {!showAuthors && activeChapter !== null && (
+        <div style={{ padding: "20px 24px", maxWidth: 860, margin: "0 auto" }}>
+          <div style={{ display: "flex", gap: 7, marginBottom: 22, flexWrap: "wrap" }}>
+            {ch.sections.map((s, i) => {
+              const sc = getScore(activeChapter, i);
+              return (
+                <button key={i} onClick={() => { setActiveSection(i); setTab("cours"); }}
+                  style={{ background: activeSection === i ? ch.color + "22" : "none", border: `1px solid ${activeSection === i ? ch.color : borderCol}`, color: activeSection === i ? ch.color : textSub, borderRadius: 9, padding: "7px 13px", fontSize: 12, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", gap: 6 }}>
+                  {i + 1}. {s.title}
+                  {sc.answered > 0 && <span style={{ fontSize: 10, background: sc.correct === sc.total ? "#34d39930" : "#fb923c30", color: sc.correct === sc.total ? "#34d399" : "#fb923c", borderRadius: 4, padding: "1px 5px" }}>{sc.correct}/{sc.total}</span>}
+                </button>
+              );
+            })}
+          </div>
+
+          {ch.sections.map((s, sIdx) => (
+            <div key={sIdx} style={{ display: activeSection === sIdx ? "block" : "none" }}>
+              <div style={{ display: "flex", gap: 8, marginBottom: 18 }}>
+                {["cours", "quiz"].map(t => (
+                  <button key={t} onClick={() => setTab(t)}
+                    style={{ background: tab === t ? ch.color + "22" : "none", border: `1px solid ${tab === t ? ch.color : borderCol}`, color: tab === t ? ch.color : textSub, borderRadius: 9, padding: "7px 18px", fontSize: 13, cursor: "pointer", fontFamily: "inherit", fontWeight: tab === t ? 700 : 400 }}>
+                    {t === "cours" ? "📖 Cours" : "✏️ Quiz V/F"}
+                  </button>
+                ))}
+              </div>
+
+              {tab === "cours" && (
+                <>
+                  <div style={{ background: cardBg, border: `1px solid ${borderCol}`, borderRadius: 18, padding: "28px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20, paddingBottom: 16, borderBottom: `1px solid ${borderCol}` }}>
+                      <div style={{ width: 32, height: 32, borderRadius: 8, background: ch.color + "20", border: `1px solid ${ch.color}44`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>{ch.icon}</div>
+                      <div>
+                        <div style={{ fontSize: 10, color: ch.color, letterSpacing: 2, textTransform: "uppercase" }}>Section {sIdx + 1}</div>
+                        <div style={{ fontSize: 18, fontWeight: 700, color: textMain }}>{s.title}</div>
+                      </div>
+                    </div>
+                    <div style={{ fontSize: 14, color: textMain, lineHeight: 1.9, whiteSpace: "pre-line" }}>{s.content}</div>
+                  </div>
+                  <div style={{ background: ch.color + "12", border: `1px solid ${ch.color}44`, borderRadius: 12, padding: "14px 18px", marginTop: 14, display: "flex", gap: 10, alignItems: "flex-start" }}>
+                    <div style={{ fontSize: 16 }}>💡</div>
+                    <div>
+                      <div style={{ fontSize: 10, color: ch.color, letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>Point clé</div>
+                      <div style={{ fontSize: 13, color: textMain, lineHeight: 1.6 }}>{s.key}</div>
+                    </div>
+                  </div>
+                  <button onClick={() => setTab("quiz")} style={{ marginTop: 14, width: "100%", background: ch.color + "18", border: `1px solid ${ch.color}66`, color: ch.color, borderRadius: 12, padding: "13px", fontSize: 13, cursor: "pointer", fontFamily: "inherit", fontWeight: 600 }}>
+                    ✏️ S'exercer sur cette section →
+                  </button>
+                </>
+              )}
+
+              {tab === "quiz" && (
+                <>
+                  <div style={{ fontSize: 11, letterSpacing: 3, color: textSub, textTransform: "uppercase", marginBottom: 16 }}>Vrai ou Faux · {s.title}</div>
+                  {s.quiz.map((q, qIdx) => {
+                    const key = `${activeChapter}-${sIdx}-${qIdx}`;
+                    const selected = quizAnswers[key];
+                    const revealed = quizRevealed[key];
+                    const isCorrect = selected === q.answer;
+                    return (
+                      <div key={qIdx} style={{ background: cardBg, border: `1px solid ${revealed ? (isCorrect ? "#34d39944" : "#fb923c44") : borderCol}`, borderRadius: 16, padding: "20px", marginBottom: 12 }}>
+                        <div style={{ fontSize: 11, color: textSub, marginBottom: 8 }}>Question {qIdx + 1} / {s.quiz.length}</div>
+                        <div style={{ fontSize: 15, color: textMain, lineHeight: 1.7, marginBottom: 16, fontWeight: 600 }}>{q.q}</div>
+                        <div style={{ display: "flex", gap: 10 }}>
+                          {[true, false].map(val => {
+                            const label = val ? "VRAI" : "FAUX";
+                            let bg2 = "#0a0f1a", border2 = borderCol, col2 = textSub;
+                            if (revealed) {
+                              if (val === q.answer) { bg2 = "#34d39918"; border2 = "#34d399"; col2 = "#34d399"; }
+                              else if (val === selected && !isCorrect) { bg2 = "#fb923c18"; border2 = "#fb923c"; col2 = "#fb923c"; }
+                            } else if (selected === val) { bg2 = ch.color + "18"; border2 = ch.color; col2 = ch.color; }
+                            return (
+                              <button key={String(val)} onClick={() => handleAnswer(activeChapter, sIdx, qIdx, val)} disabled={revealed}
+                                style={{ flex: 1, background: bg2, border: `1px solid ${border2}`, borderRadius: 10, padding: "13px 0", color: col2, fontSize: 15, fontFamily: "inherit", fontWeight: 700, letterSpacing: 2, cursor: revealed ? "default" : "pointer" }}>
+                                {label}
+                              </button>
+                            );
+                          })}
+                        </div>
+                        {revealed && (
+                          <div style={{ marginTop: 12, padding: "12px 14px", background: isCorrect ? "#34d39910" : "#fb923c10", borderRadius: 10, borderLeft: `3px solid ${isCorrect ? "#34d399" : "#fb923c"}` }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: isCorrect ? "#34d399" : "#fb923c", letterSpacing: 1, marginBottom: 4 }}>{isCorrect ? "✓ CORRECT" : "✗ INCORRECT"}</div>
+                            <div style={{ fontSize: 13, color: textMain, lineHeight: 1.6 }}>{q.exp}</div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                  {(() => {
+                    const sc = getScore(activeChapter, sIdx);
+                    if (sc.answered < sc.total) return null;
+                    const color = sc.correct === sc.total ? "#34d399" : sc.correct >= 2 ? "#fbbf24" : "#fb923c";
+                    return (
+                      <div style={{ background: color + "12", border: `1px solid ${color}44`, borderRadius: 12, padding: "16px", textAlign: "center", marginTop: 4 }}>
+                        <div style={{ fontSize: 24, fontWeight: 700, color }}>{sc.correct}/{sc.total}</div>
+                        <div style={{ fontSize: 13, color: textSub, marginTop: 4 }}>{sc.correct === sc.total ? "Parfait ! 🎉" : sc.correct >= 2 ? "Bien joué !" : "Relis le cours 📖"}</div>
+                      </div>
+                    );
+                  })()}
+                  <button onClick={() => setTab("cours")} style={{ width: "100%", background: "none", border: `1px solid ${borderCol}`, color: textSub, borderRadius: 12, padding: "11px", fontSize: 12, cursor: "pointer", fontFamily: "inherit", marginTop: 10 }}>
+                    📖 Retour au cours
+                  </button>
+                </>
+              )}
+            </div>
+          ))}
+
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: 18 }}>
+            <button onClick={() => { setActiveSection(Math.max(0, activeSection - 1)); setTab("cours"); }} disabled={activeSection === 0}
+              style={{ background: "none", border: `1px solid ${borderCol}`, color: activeSection === 0 ? "#2a3444" : textSub, borderRadius: 10, padding: "9px 18px", fontSize: 13, cursor: activeSection === 0 ? "default" : "pointer", fontFamily: "inherit" }}>← Précédent</button>
+            {activeSection < ch.sections.length - 1 ? (
+              <button onClick={() => { setActiveSection(activeSection + 1); setTab("cours"); }}
+                style={{ background: ch.color + "22", border: `1px solid ${ch.color}66`, color: ch.color, borderRadius: 10, padding: "9px 18px", fontSize: 13, cursor: "pointer", fontFamily: "inherit", fontWeight: 600 }}>Suivant →</button>
+            ) : (
+              <button onClick={() => { if (activeChapter < chapters.length - 1) { setActiveChapter(activeChapter + 1); setActiveSection(0); setTab("cours"); } else { setActiveChapter(null); } }}
+                style={{ background: ch.color + "22", border: `1px solid ${ch.color}66`, color: ch.color, borderRadius: 10, padding: "9px 18px", fontSize: 13, cursor: "pointer", fontFamily: "inherit", fontWeight: 600 }}>
+                {activeChapter < chapters.length - 1 ? `Chapitre ${activeChapter + 2} →` : "✓ Terminé"}
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+</script>
+</body>
+</html>
